@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/santoshsharma27/Namaste-React.git"
+    "url": "git+https://github.com/santoshsharma27/namaste-react.git"
   },
   "keywords": [],
   "author": "Santos Sharma",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/santoshsharma27/Namaste-React/issues"
+    "url": "git+https://github.com/santoshsharma27/namaste-react.git"
   },
-  "homepage": "https://github.com/santoshsharma27/Namaste-React#readme",
+  "homepage": "https://github.com/santoshsharma27/namaste-react#readme",
   "devDependencies": {
     "parcel": "^2.8.3",
     "process": "^0.11.10"
