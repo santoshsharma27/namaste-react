@@ -35,7 +35,7 @@
 }
 
 .nav-items ul {
-  font-size: 24px;
+  font-size: 18px;
   display: flex;
   list-style: none;
 }
@@ -55,6 +55,8 @@ li {
   padding: 5px;
   margin: 10px 5px;
   border-radius: 5px;
+  color: black;
+  text-decoration: none;
 }
 
 .res-card:hover {
@@ -109,4 +111,10 @@ li {
 
 .filter {
   display: flex;
+}
+
+.footer {
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
 }
