@@ -71,12 +71,12 @@ li {
 
 .res-container {
   display: flex;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .filter-btn {
-  margin: 10px;
+  margin: 15px;
   padding: 8px;
   cursor: pointer;
   background-color: rgb(148, 148, 213);
@@ -104,6 +104,12 @@ li {
   background-color: #f0f0f0;
 }
 
+.shimmer {
+  width: 1300px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
 .login {
   padding: 0 20px;
   cursor: pointer;
@@ -113,8 +119,64 @@ li {
   display: flex;
 }
 
+.menu {
+  padding: 10px;
+  margin: 10px;
+}
+
+.menu_items {
+  margin: 20px;
+  padding: 10px;
+}
 .footer {
   padding: 10px;
   margin: 10px;
   text-align: center;
+}
+
+h4 a {
+  margin: 3px;
+}
+
+.user-card {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+}
+
+.error {
+  text-align: center;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+}
+.search-input {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  background-color: #ffffff;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  /* padding: 14px 15px 14px 20px; */
+  padding: 14px;
+  border: 1px solid #aabcca;
+  border-right: 0;
+  outline: none;
+}
+
+.search-btn {
+  background-color: rgb(148, 81, 81);
+  color: white;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.08);
+  padding: 15px 22px;
+  margin-left: -4px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.search-btn:hover {
+  background-color: green;
 }

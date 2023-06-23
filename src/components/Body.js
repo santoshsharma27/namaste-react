@@ -2,6 +2,8 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnline from "./utils/useOnlineStatus";
+import { SWIGGY_API } from "./utils/constant";
 
 // Body Component for body section: It contain all restaurant cards
 // We are mapping restaurantList array and passing data to RestaurantCard component as props with unique key as index
@@ -14,14 +16,11 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect called");
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9046136&lng=77.614948&page_type=DESKTOP_WEB_LISTING"
-    );
+    const data = await fetch(SWIGGY_API);
     const json = await data.json();
 
     // Optional Chaining
@@ -29,24 +28,30 @@ const Body = () => {
     setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
   };
 
+  if (!listofRestaurants) return null;
+
+  const isOnline = useOnline();
+  if (!isOnline)
+    return <h1 className="error">Please check internet Connection...</h1>;
+
   return listofRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="search-container">
+        <div>
           <input
-            className=""
+            className="search-input"
             type="text"
+            placeholder="Search a restaurant you want..."
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="search-btn"
             onClick={() => {
-              console.log(searchText);
-
               const filteredRestaurant = listofRestaurants.filter((res) =>
                 res.data.name.toLowerCase().includes(searchText.toLowerCase())
               );
