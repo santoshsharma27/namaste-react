@@ -11,48 +11,59 @@ import { SWIGGY_API } from "./utils/constant";
 const Body = () => {
   // Local State Behaviour - Super powerful variable
 
-  const [listofRestaurants, setListofRestaurants] = useState([]);
-  const [searchText, setSearchText] = useState("");
+  const [listOfRestaurants, setListOfRestraunts] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(SWIGGY_API);
-    const json = await data.json();
+    try {
+      const res = await fetch(SWIGGY_API);
+      // if response is not ok then throw new Error
+      if (!res.ok)
+        throw new Error("Something went wrong with fetching restaurants");
 
-    // Optional Chaining
-    setListofRestaurants(json?.data?.cards[2]?.data?.data?.cards);
-    setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
+      const json = await res.json();
+      console.log(json);
+
+      // Optional Chaining
+      setListOfRestraunts(json?.data?.cards[2]?.data?.data?.cards);
+      setFilteredRestaurant(json?.data?.cards[2]?.data?.data?.cards);
+    } catch (error) {
+      console.error(error); // show error in console
+    }
   };
 
-  if (!listofRestaurants) return null;
+  if (!listOfRestaurants) return null;
 
   const isOnline = useOnline();
+
   if (!isOnline)
     return <h1 className="error">Please check internet Connection...</h1>;
 
-  return listofRestaurants.length === 0 ? (
+  return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
-    <div className="body">
-      <div className="search-container">
-        <div>
+    <div>
+      <div className="flex items-center justify-center">
+        <div className="m-1 p-4">
           <input
-            className="search-input"
+            className="border border-solid border-black w[2500px]"
             type="text"
-            placeholder="Search a restaurant you want..."
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
-            className="search-btn"
+            className="mx-5 px-3 bg-green-300 rounded-lg"
             onClick={() => {
-              const filteredRestaurant = listofRestaurants.filter((res) =>
+              const filteredRestaurant = listOfRestaurants.filter((res) =>
                 res.data.name.toLowerCase().includes(searchText.toLowerCase())
               );
 
@@ -62,20 +73,22 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = listofRestaurants.filter(
-              (res) => res.data.avgRating > 4
-            );
-            setListofRestaurants(filteredList);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div className="m-1 p-4 flex items-center">
+          <button
+            className="bg-gray-100 px-4 py-2 rounded-lg"
+            onClick={() => {
+              const filteredList = listOfRestaurants.filter(
+                (res) => res?.data?.avgRating > 4
+              );
+              setListOfRestraunts(filteredList);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
-        {filteredRestaurant.map((restaurant) => (
+      <div className="flex flex-wrap">
+        {filteredRestaurant?.map((restaurant) => (
           <Link
             key={restaurant.data.id}
             to={"/restaurants/" + restaurant.data.id}

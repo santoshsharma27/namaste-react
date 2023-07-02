@@ -17,16 +17,19 @@ const RestaurantMenu = () => {
     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
 
   return (
-    <div className="menu">
-      <h2>{name}</h2>
-      <p>
-        {cuisines.join(",")} - {costForTwoMessage}
-      </p>
-      <h4>{city}</h4>
-      <h4>{areaName}</h4>
-      <h4>{avgRating}</h4>
-      <h2>Menu</h2>
-      <ul className="menu_items">
+    <div className="m-5 p-5">
+      <div>
+        <h2 className="font-bold">{name}</h2>
+        <p>
+          {cuisines.join(",")} - {costForTwoMessage}
+        </p>
+        <h4>{city}</h4>
+        <h4>{areaName}</h4>
+        <span className="bg-green-300 px-2">{"❇️"}</span>
+        <span className="bg-green-300 px-1">{avgRating}</span>
+      </div>
+      <h2 className="font-bold py-5">Menu</h2>
+      <ul className="">
         {itemCards.map((item) => (
           <li key={item?.card?.info?.id}>
             {item?.card?.info?.name} - Rs.
