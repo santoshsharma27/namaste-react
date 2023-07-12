@@ -19,15 +19,16 @@ const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
   return (
-    <div className="app">
+    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
       <Header />
       <Outlet />
+
       <Footer />
     </div>
   );
 };
 
-const appRouter = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
@@ -71,4 +72,4 @@ const appRouter = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<RouterProvider router={appRouter} />);
+root.render(<RouterProvider router={router} />);
