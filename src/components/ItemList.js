@@ -1,6 +1,10 @@
 import { CDN_URL } from "./utils/constant";
 
 function ItemList({ items }) {
+  function addHandler() {
+    console.log("Added to cart");
+  }
+
   return (
     <div>
       {items.map((item) => (
@@ -25,7 +29,10 @@ function ItemList({ items }) {
               alt=""
             />
             <div className="px-5">
-              <button className="px-4 py-1 border text-green-500 font-semibold rounded-md text-center">
+              <button
+                className="px-5 py-1 border text-green-500 font-semibold rounded-md text-center"
+                onClick={addHandler}
+              >
                 ADD +
               </button>
             </div>

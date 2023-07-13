@@ -26,11 +26,11 @@ class UserClass extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("Component Did Update");
+    // console.log("Component Did Update");
   }
 
   componentWillUnmount() {
-    console.log("Component Will Unmount");
+    // console.log("Component Will Unmount");
   }
 
   render() {
@@ -39,7 +39,7 @@ class UserClass extends React.Component {
     const { name, location, avatar_url } = this.state.userInfo;
 
     return (
-      <div className="user-card">
+      <div>
         <h2>Name: {name}</h2>
         <img src={avatar_url} alt="image" />
         <h3>Location: {location}</h3>

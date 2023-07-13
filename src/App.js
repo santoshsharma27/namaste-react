@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
+import UserContext from "./components/utils/UserContext";
 
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
@@ -18,19 +19,28 @@ const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
-  return (
-    <div className="grid h-screen grid-rows-[auto_1fr_auto]">
-      <Header />
-      <Outlet />
+  const [userName, setUserName] = useState();
 
-      <Footer />
-    </div>
+  useEffect(() => {
+    const data = { name: "Santosh" };
+    setUserName(data.name);
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ loggedInUser: userName }}>
+      <div className="grid h-screen grid-rows-[auto_1fr_auto]">
+        <Header />
+
+        <Outlet />
+
+        <Footer />
+      </div>
+    </UserContext.Provider>
   );
 };
 
 const router = createBrowserRouter([
   {
-    path: "/",
     element: <AppLayout />,
     children: [
       {

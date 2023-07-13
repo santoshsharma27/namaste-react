@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useOnline from "./utils/useOnlineStatus";
+import UserContext from "./utils/UserContext";
 
 // Header component for header section: Logo, Nav Items
 const Header = () => {
   const [btnNameReact, setBtnNameReact] = useState("Login");
 
   const isOnline = useOnline();
+
+  const { loggedInUser } = useContext(UserContext);
 
   return (
     <div className="flex items-center justify-between border-b border-stone-200 bg-yellow-400 px-4 uppercase sm:px-6 font-semibold py-5">
@@ -42,6 +45,7 @@ const Header = () => {
           >
             {btnNameReact}
           </button>
+          <li>{loggedInUser}</li>
         </ul>
       </nav>
     </div>

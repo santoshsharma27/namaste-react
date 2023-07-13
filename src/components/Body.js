@@ -51,7 +51,7 @@ const Body = () => {
       <div className="flex items-center justify-center">
         <div className="m-1 p-4">
           <input
-            className="border border-solid border-black w-[350px] rounded-full px-3 py-2"
+            className="border border-solid w-[350px] rounded-full px-3 py-2"
             type="text"
             placeholder="Search restaurants..."
             value={searchText}

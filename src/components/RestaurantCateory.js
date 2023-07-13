@@ -2,11 +2,9 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import ItemList from "./ItemList";
 import { useState } from "react";
 
-function RestaurantCateory({ data }) {
-  const [showItem, setShowItems] = useState(true);
-
+function RestaurantCateory({ data, showItems, setShowIndex }) {
   function handleClick() {
-    setShowItems(!showItem);
+    setShowIndex();
   }
 
   return (
@@ -19,7 +17,7 @@ function RestaurantCateory({ data }) {
           <span className="font-semibold text-lg">
             {data.title} ({data?.itemCards.length})
           </span>
-          {!showItem ? (
+          {!showItems ? (
             <span>
               <HiChevronDown />
             </span>
@@ -29,7 +27,7 @@ function RestaurantCateory({ data }) {
             </span>
           )}
         </div>
-        {showItem && <ItemList items={data.itemCards} />}
+        {showItems && <ItemList items={data.itemCards} />}
       </div>
     </div>
   );
