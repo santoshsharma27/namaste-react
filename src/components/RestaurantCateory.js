@@ -2,9 +2,12 @@ import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import ItemList from "./ItemList";
 import { useState } from "react";
 
-function RestaurantCateory({ data, showItems, setShowIndex }) {
+function RestaurantCateory({ data, num, curOpen, onOpen }) {
+  const isOpen = num === curOpen;
+
   function handleClick() {
-    setShowIndex();
+    // onOpen(num);
+    onOpen(isOpen ? null : num);
   }
 
   return (
@@ -17,17 +20,17 @@ function RestaurantCateory({ data, showItems, setShowIndex }) {
           <span className="font-semibold text-lg">
             {data.title} ({data?.itemCards.length})
           </span>
-          {!showItems ? (
-            <span>
-              <HiChevronDown />
-            </span>
-          ) : (
+          {isOpen ? (
             <span>
               <HiChevronUp />
             </span>
+          ) : (
+            <span>
+              <HiChevronDown />
+            </span>
           )}
         </div>
-        {showItems && <ItemList items={data.itemCards} />}
+        {isOpen && <ItemList items={data.itemCards} />}
       </div>
     </div>
   );

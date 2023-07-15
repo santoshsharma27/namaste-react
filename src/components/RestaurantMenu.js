@@ -5,11 +5,11 @@ import useRestaurantMenu from "./utils/useRestaurantMenu";
 import RestaurantCateory from "./RestaurantCateory";
 
 const RestaurantMenu = () => {
+  const [curOpen, setCurOpen] = useState(null);
+
   const { resId } = useParams();
 
   const resInfo = useRestaurantMenu(resId);
-
-  const [showIndex, setShowIndex] = useState(0);
 
   if (resInfo === null) return <Shimmer />;
 
@@ -18,8 +18,6 @@ const RestaurantMenu = () => {
 
   const { itemCards } =
     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]?.card?.card;
-
-  console.log(resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
 
   const categories =
     resInfo?.cards[2]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
@@ -36,10 +34,11 @@ const RestaurantMenu = () => {
       </p>
       {categories.map((category, index) => (
         <RestaurantCateory
-          key={category.id}
+          curOpen={curOpen}
+          onOpen={setCurOpen}
           data={category?.card?.card}
-          showItems={index === showIndex}
-          setShowIndex={() => setShowIndex(index)}
+          num={index}
+          key={category.id}
         />
       ))}
     </div>
