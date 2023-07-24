@@ -5,7 +5,7 @@ import useRestaurantMenu from "./utils/useRestaurantMenu";
 import RestaurantCateory from "./RestaurantCateory";
 
 const RestaurantMenu = () => {
-  const [curOpen, setCurOpen] = useState(null);
+  const [curOpen, setCurOpen] = useState(0);
 
   const { resId } = useParams();
 

@@ -1,8 +1,12 @@
 import { CDN_URL } from "./utils/constant";
+import { addItem } from "./utils/cartSlice";
+import { useDispatch } from "react-redux";
 
 function ItemList({ items }) {
-  function addHandler() {
-    console.log("Added to cart");
+  const dispatch = useDispatch();
+
+  function addHandler(item) {
+    dispatch(addItem(item));
   }
 
   return (
@@ -26,12 +30,12 @@ function ItemList({ items }) {
             <img
               className="w-30 h-20 relative rounded-md"
               src={CDN_URL + item?.card?.info?.imageId}
-              alt=""
+              alt="item image"
             />
             <div className="px-5">
               <button
                 className="px-5 py-1 border text-green-500 font-semibold rounded-md text-center"
-                onClick={addHandler}
+                onClick={() => addHandler(item)}
               >
                 ADD +
               </button>

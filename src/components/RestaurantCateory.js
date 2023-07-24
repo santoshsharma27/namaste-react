@@ -1,6 +1,5 @@
 import { HiChevronDown, HiChevronUp } from "react-icons/hi2";
 import ItemList from "./ItemList";
-import { useState } from "react";
 
 function RestaurantCateory({ data, num, curOpen, onOpen }) {
   const isOpen = num === curOpen;

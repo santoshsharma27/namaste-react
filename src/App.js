@@ -10,6 +10,9 @@ import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
 import UserContext from "./components/utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./components/utils/appStore";
+import { USERNAME } from "./components/utils/constant";
 
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
@@ -22,20 +25,22 @@ const AppLayout = () => {
   const [userName, setUserName] = useState();
 
   useEffect(() => {
-    const data = { name: "Santosh" };
+    const data = { name: USERNAME };
     setUserName(data.name);
   }, []);
 
   return (
-    <UserContext.Provider value={{ loggedInUser: userName }}>
-      <div className="grid h-screen grid-rows-[auto_1fr_auto]">
-        <Header />
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName }}>
+        <div className="grid h-screen grid-rows-[auto_1fr_auto]">
+          <Header />
 
-        <Outlet />
+          <Outlet />
 
-        <Footer />
-      </div>
-    </UserContext.Provider>
+          <Footer />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
