@@ -1,6 +1,5 @@
-import { CDN_URL } from "./utils/constant";
+import { CDN_URL } from "../utils/constant";
 
-// Restaurant card component: Image, name, cuisine
 const RestaurantCard = (props) => {
   const { resData } = props;
 
@@ -11,7 +10,7 @@ const RestaurantCard = (props) => {
     avgRating,
     costForTwoString,
     deliveryTime,
-  } = resData.data;
+  } = resData;
 
   return (
     <div className="m-4 p-4 h-[300px] w-[250px] rounded-lg bg-gray-100 hover:bg-gray-200">

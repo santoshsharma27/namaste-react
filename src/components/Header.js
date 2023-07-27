@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi2";
-import useOnline from "./utils/useOnlineStatus";
-import UserContext from "./utils/UserContext";
+import useOnline from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 import { useSelector } from "react-redux";
 
 // Header component for header section: Logo, Nav Items

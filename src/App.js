@@ -4,16 +4,15 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Contact from "./components/Contact";
-import Error from "./components/Error";
+import Error from "./ui/Error";
 import Footer from "./components/Footer";
 import Cart from "./components/Cart";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
-import UserContext from "./components/utils/UserContext";
 import { Provider } from "react-redux";
-import appStore from "./components/utils/appStore";
-import { USERNAME } from "./components/utils/constant";
-
+import { USERNAME } from "./utils/constant";
+import UserContext from "./utils/UserContext";
+import appStore from "./utils/appStore";
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
 

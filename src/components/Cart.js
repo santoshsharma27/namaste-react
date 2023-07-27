@@ -1,10 +1,10 @@
 import React from "react";
-import EmptyCart from "./ui/EmptyCart";
+import EmptyCart from "../ui/EmptyCart";
 import { useDispatch, useSelector } from "react-redux";
-import LinkButton from "./ui/LinkButton";
+import LinkButton from "../ui/LinkButton";
 import ItemList from "./ItemList";
-import Button from "./ui/Button";
-import { clearCart } from "./utils/cartSlice";
+import Button from "../ui/Button";
+import { clearCart } from "../utils/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();

@@ -2,17 +2,16 @@ import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-import useOnline from "./utils/useOnlineStatus";
-import { SWIGGY_API } from "./utils/constant";
+import useOnline from "../utils/useOnlineStatus";
+import { SWIGGY_API } from "../utils/constant";
 
 const Body = () => {
-  // Local State Behaviour - Super powerful variable
-
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
+
   const [searchText, setSearchText] = useState("");
 
-  const ReataurantCardPromoted = withPromotedLabel(RestaurantCard);
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   // Whenever state variables update, react triggers a reconciliation cycle(re-renders the component)
 
@@ -22,16 +21,25 @@ const Body = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(SWIGGY_API);
+      const res = await fetch(
+        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9046136&lng=77.614948&page_type=DESKTOP_WEB_LISTING"
+      );
       // if response is not ok then throw new Error
       if (!res.ok)
         throw new Error("Something went wrong with fetching restaurants");
 
       const data = await res.json();
+      console.log(data);
 
       // Optional Chaining
-      setListOfRestaurants(data?.data?.cards[2]?.data?.data?.cards);
-      setFilteredRestaurant(data?.data?.cards[2]?.data?.data?.cards);
+      setListOfRestaurants(
+        data?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
+      setFilteredRestaurant(
+        data?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants
+      );
     } catch (error) {
       console.error(error); // show error in console
     }
@@ -90,13 +98,13 @@ const Body = () => {
       <div className="flex flex-wrap items-center justify-center">
         {filteredRestaurant.map((restaurant) => (
           <Link
-            key={restaurant.data.id}
-            to={"/restaurants/" + restaurant.data.id}
+            key={restaurant?.info.id}
+            to={"/restaurants/" + restaurant?.info.id}
           >
-            {restaurant.data.promoted ? (
-              <ReataurantCardPromoted resData={restaurant} />
+            {restaurant?.info?.promoted ? (
+              <RestaurantCardPromoted resData={restaurant?.info} />
             ) : (
-              <RestaurantCard resData={restaurant} />
+              <RestaurantCard resData={restaurant?.info} />
             )}
           </Link>
         ))}
