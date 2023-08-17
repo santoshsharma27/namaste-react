@@ -1,4 +1,5 @@
 import React from "react";
+import { Linkedin_URL } from "../utils/constant";
 
 const Footer = () => {
   return (
@@ -7,7 +8,7 @@ const Footer = () => {
         This site is developed by
         <a
           className="px-1"
-          href="https://www.linkedin.com/in/santosh-kumar-sharma-15b132168/"
+          href={Linkedin_URL}
           target="_blank"
           title="Santosh Kumar Sharma Linkedin Profile"
         >

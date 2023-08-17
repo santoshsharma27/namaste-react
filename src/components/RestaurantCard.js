@@ -20,7 +20,10 @@ const RestaurantCard = (props) => {
         alt="res-logo"
       />
       <h3 className="font-semibold py-3 text-lg">{name}</h3>
-      <h4 className="text-sm">{cuisines.join(", ")}</h4>
+      <div>
+        <h4 className="text-sm">{cuisines.join(", ")}</h4>
+      </div>
+
       <div className="mt-auto flex items-center justify-between">
         <span className="bg-green-300 px-1 mt-1">❇️ {avgRating}</span>
         <h4 className="text-xs">{deliveryTime} MINS</h4>

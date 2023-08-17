@@ -18,11 +18,11 @@ class UserClass extends React.Component {
     // console.log(this.props.name + "Child Component Did Mount");
 
     // API Call
-    const data = await fetch("https://api.github.com/users/santoshsharma27");
-    const json = await data.json();
-    console.log(json);
+    const res = await fetch("https://api.github.com/users/santoshsharma27");
+    const data = await res.json();
+    console.log(data);
 
-    this.setState({ userInfo: json });
+    this.setState({ userInfo: data });
   }
 
   componentDidUpdate() {

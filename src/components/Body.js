@@ -21,9 +21,7 @@ const Body = () => {
 
   const fetchData = async () => {
     try {
-      const res = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9046136&lng=77.614948&page_type=DESKTOP_WEB_LISTING"
-      );
+      const res = await fetch(SWIGGY_API);
       // if response is not ok then throw new Error
       if (!res.ok)
         throw new Error("Something went wrong with fetching restaurants");
@@ -33,11 +31,11 @@ const Body = () => {
 
       // Optional Chaining
       setListOfRestaurants(
-        data?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants
       );
       setFilteredRestaurant(
-        data?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle
+        data?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants
       );
     } catch (error) {
@@ -71,7 +69,7 @@ const Body = () => {
             className="mx-5 px-8 py-3 bg-yellow-400 rounded-full font-semibold"
             onClick={() => {
               const filteredRestaurant = listOfRestaurants.filter((res) =>
-                res.data.name.toLowerCase().includes(searchText.toLowerCase())
+                res.info.name.toLowerCase().includes(searchText.toLowerCase())
               );
 
               setFilteredRestaurant(filteredRestaurant);
@@ -85,7 +83,7 @@ const Body = () => {
             className="bg-gray-100 px-4 py-2 rounded-lg font-semibold"
             onClick={() => {
               const filteredList = listOfRestaurants.filter(
-                (res) => res.data.avgRating > 4
+                (res) => res.info.avgRating > 4
               );
               console.log(filteredList);
               setFilteredRestaurant(filteredList);
