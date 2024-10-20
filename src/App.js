@@ -17,11 +17,10 @@ import appStore from "./utils/appStore";
 // import About from "./components/About";
 
 const Grocery = lazy(() => import("./components/Grocery"));
-
 const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     const data = { name: USERNAME };
@@ -31,11 +30,11 @@ const AppLayout = () => {
   return (
     <Provider store={appStore}>
       <UserContext.Provider value={{ loggedInUser: userName }}>
-        <div className="grid h-screen grid-rows-[auto_1fr_auto]">
+        <div className="flex flex-col min-h-screen">
           <Header />
-
-          <Outlet />
-
+          <main className="flex-grow">
+            <Outlet />
+          </main>
           <Footer />
         </div>
       </UserContext.Provider>
@@ -46,6 +45,7 @@ const AppLayout = () => {
 const router = createBrowserRouter([
   {
     element: <AppLayout />,
+    errorElement: <Error />, // Error boundary for layout
     children: [
       {
         path: "/",
@@ -80,10 +80,8 @@ const router = createBrowserRouter([
         element: <RestaurantMenu />,
       },
     ],
-    errorElement: <Error />,
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
 root.render(<RouterProvider router={router} />);

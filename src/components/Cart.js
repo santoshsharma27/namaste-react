@@ -19,8 +19,6 @@ function Cart() {
 
   return (
     <div className="mt-5 w-6/12 m-auto">
-      <LinkButton to="/">&larr; Back to menu</LinkButton>
-
       <h2 className="mt-7 text-xl font-semibold">Your cart</h2>
 
       <div className="mt-3 divide-y divide-stone-200">

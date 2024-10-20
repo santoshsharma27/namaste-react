@@ -10,15 +10,15 @@ function ItemList({ items }) {
   }
 
   return (
-    <div>
-      {items.map((item) => (
+    <div className="space-y-4">
+      {items?.map((item) => (
         <div
-          className="p-2 m-2 border-b text-left flex justify-between"
+          className="p-2 border-b text-left flex flex-col md:flex-row justify-between"
           key={item.card.info.id}
         >
-          <div className="py-2">
+          <div className="py-2 w-full md:w-3/5">
             <div className="font-semibold">{item.card.info.name}</div>
-            <span>
+            <span className="block">
               ₹
               {item.card.info.price
                 ? item.card.info.price / 100
@@ -26,20 +26,18 @@ function ItemList({ items }) {
             </span>
             <p className="text-sm opacity-40">{item.card.info.description}</p>
           </div>
-          <div>
+          <div className="flex flex-col items-center md:flex-row md:w-2/5">
             <img
-              className="w-30 h-20 relative rounded-md"
+              className="w-30 h-20 relative rounded-md mb-2 md:mb-0"
               src={CDN_URL + item?.card?.info?.imageId}
               alt="item image"
             />
-            <div className="px-5">
-              <button
-                className="px-5 py-1 border text-green-500 font-semibold rounded-md text-center"
-                onClick={() => addHandler(item)}
-              >
-                ADD +
-              </button>
-            </div>
+            <button
+              className="px-5 py-1 border text-green-500 font-semibold rounded-md text-center md:ml-5 mt-2 md:mt-0"
+              onClick={() => addHandler(item)}
+            >
+              ADD +
+            </button>
           </div>
         </div>
       ))}
