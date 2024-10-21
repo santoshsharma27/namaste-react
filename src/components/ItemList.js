@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 function ItemList({ items }) {
   const dispatch = useDispatch();
-
   function addHandler(item) {
     dispatch(addItem(item));
   }
@@ -17,7 +16,7 @@ function ItemList({ items }) {
           key={item.card.info.id}
         >
           <div className="py-2 w-full md:w-3/5">
-            <div className="font-semibold">{item.card.info.name}</div>
+            <div className="font-semibold">{item?.card?.info?.name}</div>
             <span className="block">
               ₹
               {item.card.info.price
