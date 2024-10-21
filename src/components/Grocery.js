@@ -5,10 +5,11 @@ const Grocery = () => {
   return (
     <div className="text-center pt-32">
       <h2 className="text-2xl font-semibold">
-        Our Grocery Online Store is currently unavailable
+        Our Grocery Store is currently unavailable
       </h2>
       <p className="mt-4 text-gray-600">
-        We apologize for the inconvenience. Please check back later!
+        We apologize for any inconvenience caused. Please check back with us
+        later.
       </p>
       <Link
         to="/"

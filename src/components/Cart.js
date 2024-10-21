@@ -6,6 +6,7 @@ import ItemList from "./ItemList";
 import Button from "../ui/Button";
 import { clearCart } from "../utils/cartSlice";
 import ConfirmModal from "./ConfirmModal";
+import CartItems from "./CartItems";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -29,10 +30,10 @@ function Cart() {
 
   return (
     <div className="mt-5 w-11/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 m-auto p-4 pt-16">
-      <h2 className="mt-7 text-2xl font-semibold">Your Cart</h2>
+      <h2 className="mt-7 text-2xl font-semibold">Your Cart Items</h2>
 
       <div className="mt-5 divide-y divide-stone-200">
-        <ItemList items={cartItems} />
+        <CartItems items={cartItems} />
       </div>
 
       <div className="mt-6 flex flex-col space-y-3 sm:flex-row sm:space-x-2 sm:space-y-0 justify-between">

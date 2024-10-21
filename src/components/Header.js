@@ -25,8 +25,14 @@ const Header = () => {
         Fast Food Co.
       </Link>
 
-      {/* Hamburger Icon */}
-      <div className="md:hidden">
+      <div className="flex items-center space-x-4 md:hidden">
+        {/* Cart Icon (Visible next to hamburger menu on mobile) */}
+        <NavLink to="/cart" className="flex items-center space-x-1">
+          <HiShoppingCart size={24} />
+          <span>{cartItems.length > 0 ? `${cartItems.length}` : ""}</span>
+        </NavLink>
+
+        {/* Hamburger Icon */}
         <button onClick={toggleMenu}>
           {isOpen ? (
             <FaTimes size={24} className="text-black" />
@@ -70,14 +76,7 @@ const Header = () => {
               Contact Us
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/cart" className="flex items-center space-x-2">
-              <HiShoppingCart />
-              <span>
-                {cartItems.length > 0 ? `${cartItems.length} Cart` : "Cart"}
-              </span>
-            </NavLink>
-          </li>
+
           <li>
             <NavLink
               to="/grocery"
@@ -100,6 +99,13 @@ const Header = () => {
           </button>
           <li>{loggedInUser}</li>
         </ul>
+
+        <NavLink to="/cart" className="flex items-center space-x-2 px-8">
+          <HiShoppingCart />
+          <span>
+            {cartItems.length > 0 ? `${cartItems.length} Cart` : "Cart"}
+          </span>
+        </NavLink>
       </nav>
 
       {/* Full-Screen Navigation Menu for Mobile */}
@@ -140,18 +146,7 @@ const Header = () => {
                 Contact Us
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/cart"
-                onClick={toggleMenu}
-                className="flex items-center space-x-2 text-white text-2xl transition-colors duration-300 hover:text-red-500"
-              >
-                <HiShoppingCart />
-                <span>
-                  {cartItems.length > 0 ? `${cartItems.length} Cart` : "Cart"}
-                </span>
-              </NavLink>
-            </li>
+
             <li>
               <NavLink
                 to="/grocery"

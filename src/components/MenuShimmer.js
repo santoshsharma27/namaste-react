@@ -1,36 +1,34 @@
+// MenuShimmer.js
 import React from "react";
 
 const MenuShimmer = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen md:pt-40 pt-48">
-      {/* Simulating multiple shimmer list items vertically */}
-      {Array(10)
-        .fill("")
-        .map((_, index) => (
-          <div
-            key={index}
-            className="p-2 m-2 border-b text-left flex justify-between animate-pulse w-full max-w-md"
-          >
-            {/* Placeholder for the text content (name, price, description) */}
-            <div className="py-2 w-3/4">
-              {/* Restaurant name shimmer */}
-              <div className="h-6 bg-gray-300 rounded w-4/5 mb-2"></div>
-              {/* Price shimmer */}
-              <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
-              {/* Description shimmer */}
-              <div className="h-3 bg-gray-100 rounded w-full mb-1"></div>
-              <div className="h-3 bg-gray-100 rounded w-4/5"></div>
-            </div>
+    <div className="space-y-6 pt-48 mx-auto" style={{ maxWidth: "768px" }}>
+      {/* Placeholder for each item */}
+      {[...Array(10)].map((_, index) => (
+        <div
+          key={index}
+          className="flex flex-col md:flex-row items-center justify-between p-4 bg-gray-200 rounded-lg h-32 animate-pulse shadow-lg"
+        >
+          {/* Item Details Placeholder */}
+          <div className="flex-1 text-left md:w-3/5">
+            <div className="h-4 bg-gray-300 rounded w-1/4 mb-2"></div>
+            <div className="h-4 bg-gray-300 rounded w-1/2 mb-2"></div>
+            <div className="h-3 bg-gray-300 rounded w-3/4 mb-1"></div>
+            <div className="h-3 bg-gray-300 rounded w-5/6"></div>
+          </div>
 
-            {/* Placeholder for the image */}
-            <div className="w-24 h-16 bg-gray-300 rounded-md"></div>
-
-            {/* Placeholder for the button */}
-            <div className="px-5 flex items-center">
-              <div className="w-16 h-8 bg-gray-300 rounded-md"></div>
+          {/* Item Image Placeholder */}
+          <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0">
+            <div className="h-24 w-32 bg-gray-300 rounded-md mb-4 md:mb-0 md:mr-4"></div>
+            {/* Action Buttons Placeholder */}
+            <div className="flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
+              <div className="h-10 bg-gray-300 rounded w-full md:w-24"></div>
+              <div className="h-10 bg-gray-300 rounded w-full md:w-24"></div>
             </div>
           </div>
-        ))}
+        </div>
+      ))}
     </div>
   );
 };
