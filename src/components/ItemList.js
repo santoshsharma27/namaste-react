@@ -6,33 +6,36 @@ import { useState } from "react";
 function ItemList({ items }) {
   const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items); // Get cart items from store
-  const [addedItemId, setAddedItemId] = useState(null); // Track the last added item for button feedback
-  const [showToast, setShowToast] = useState(false); // State for the toast notification
+  const [notification, setNotification] = useState(null); // State for the toast notification
 
   function addHandler(item) {
     dispatch(addItem(item));
-    setAddedItemId(item.card.info.id); // Track the added item
-    setShowToast(true); // Show toast notification
+    setNotification({ type: "add", message: "Item added to cart!" });
 
     // Hide toast after 2 seconds
     setTimeout(() => {
-      setShowToast(false);
+      setNotification(null);
     }, 2000);
   }
 
   function deleteHandler(item) {
     dispatch(deleteItem(item)); // Dispatch delete action
-    if (addedItemId === item.card.info.id) {
-      setAddedItemId(null); // Reset addedItemId so it can be added again
-    }
+    setNotification({ type: "delete", message: "Item removed from cart!" });
+
+    // Hide toast after 2 seconds
+    setTimeout(() => {
+      setNotification(null);
+    }, 2000);
   }
 
   return (
     <div className="space-y-6 p-4 relative">
       {/* Toast Notification */}
-      {showToast && (
-        <div className="fixed top-20 right-4 bg-green-500 text-white p-3 rounded-lg shadow-lg transition-transform duration-300">
-          Item added to cart!
+      {notification && (
+        <div
+          className={`fixed top-20 right-4 p-3 rounded-lg shadow-lg transition-transform duration-300 ${notification.type === "add" ? "bg-green-500" : "bg-red-500"} text-white`}
+        >
+          {notification.message}
         </div>
       )}
 
@@ -71,15 +74,10 @@ function ItemList({ items }) {
               />
               <div className="flex space-x-2">
                 <button
-                  className={`px-4 py-2 rounded-md text-white font-semibold transition-colors ${
-                    addedItemId === item.card.info.id
-                      ? "bg-gray-500 cursor-not-allowed"
-                      : "bg-green-500 hover:bg-green-600"
-                  }`}
+                  className="px-4 py-2 rounded-md text-white font-semibold bg-green-500 hover:bg-green-600"
                   onClick={() => addHandler(item)}
-                  disabled={addedItemId === item.card.info.id} // Disable button if item was just added
                 >
-                  {addedItemId === item.card.info.id ? "Added" : "ADD +"}
+                  ADD +
                 </button>
                 {/* Show Delete button only if item is in the cart */}
                 {isItemInCart && (
