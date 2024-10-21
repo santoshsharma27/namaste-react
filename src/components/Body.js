@@ -19,8 +19,9 @@ const Body = () => {
   const fetchData = async () => {
     try {
       const res = await fetch(SWIGGY_API);
-      if (!res.ok)
+      if (!res.ok) {
         throw new Error("Something went wrong with fetching restaurants");
+      }
 
       const json = await res.json();
       console.log("API Response: ", json); // Log the entire response
@@ -36,16 +37,17 @@ const Body = () => {
 
   // Make sure to pass jsonData to this function
   const checkJsonData = (jsonData) => {
+    console.log(jsonData?.data?.cards.length);
     for (let i = 0; i < jsonData?.data?.cards.length; i++) {
       let checkData =
         jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
-
+      console.log(checkData);
       if (checkData !== undefined) {
         return checkData;
       }
     }
-    // return []; // Return an empty array if no data found
+    return []; // Return an empty array if no data found
   };
 
   const isOnline = useOnline();
@@ -58,7 +60,7 @@ const Body = () => {
     setSearchText(value);
 
     if (value === "") {
-      setFilteredRestaurants(listOfRestaurants);
+      setFilteredRestaurants(allRestaurants);
       setErrorMessage("");
     } else {
       const filtered = allRestaurants.filter((res) =>

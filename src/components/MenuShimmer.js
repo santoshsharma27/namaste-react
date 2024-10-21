@@ -2,9 +2,9 @@ import React from "react";
 
 const MenuShimmer = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen md:pt-48">
+    <div className="flex flex-col items-center justify-center min-h-screen md:pt-40 pt-48">
       {/* Simulating multiple shimmer list items vertically */}
-      {Array(5)
+      {Array(10)
         .fill("")
         .map((_, index) => (
           <div
