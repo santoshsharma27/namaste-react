@@ -1,9 +1,21 @@
 import React from "react";
+import { Link } from "react-router-dom"; // Assuming you're using React Router for navigation
 
 const Grocery = () => {
   return (
-    <div className="text-center m-5">
-      <h2>Our Grocery Online Store and it has lot of components</h2>
+    <div className="text-center pt-32">
+      <h2 className="text-2xl font-semibold">
+        Our Grocery Online Store is currently unavailable
+      </h2>
+      <p className="mt-4 text-gray-600">
+        We apologize for the inconvenience. Please check back later!
+      </p>
+      <Link
+        to="/"
+        className="inline-block mt-6 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+      >
+        Go Back to Home
+      </Link>
     </div>
   );
 };

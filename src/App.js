@@ -13,6 +13,8 @@ import { Provider } from "react-redux";
 import { USERNAME } from "./utils/constant";
 import UserContext from "./utils/UserContext";
 import appStore from "./utils/appStore";
+import CreateOrder from "./components/CreateOrder";
+import OrderSuccess from "./components/OrderSuccess";
 // import Grocery from "./components/Grocery";
 // import About from "./components/About";
 
@@ -78,6 +80,14 @@ const router = createBrowserRouter([
       {
         path: "/restaurants/:resId",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/order/new",
+        element: <CreateOrder />,
+      },
+      {
+        path: "/order-success",
+        element: <OrderSuccess />,
       },
     ],
   },

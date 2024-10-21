@@ -15,10 +15,14 @@ class About extends Component {
     // console.log("Parent Render");
 
     return (
-      <div className="text-center m-5 pt-24">
-        <h1>About Class Component</h1>
-        <h2>This is Namaste React Web Series</h2>
-        <UserClass name={"First"} location={"Bangalore class"} />
+      <div className="text-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 py-16 pt-32">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4">
+          About Class Component
+        </h1>
+
+        <div className="flex flex-col items-center justify-center">
+          <UserClass name={"First"} location={"Bangalore class"} />
+        </div>
       </div>
     );
   }

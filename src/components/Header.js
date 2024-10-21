@@ -21,10 +21,7 @@ const Header = () => {
 
   return (
     <header className="flex items-center justify-between bg-white text-black font-bold fixed w-screen shadow-md z-50 h-16 px-4 md:px-10 md:bg-white">
-      <Link
-        to="/"
-        className="tracking-widest font-bold text-[24px] transition-colors duration-300 hover:text-red-600"
-      >
+      <Link to="/" className="tracking-widest font-bold text-[24px]">
         Fast Food Co.
       </Link>
 
@@ -76,7 +73,9 @@ const Header = () => {
           <li>
             <NavLink to="/cart" className="flex items-center space-x-2">
               <HiShoppingCart />
-              <span>{cartItems.length > 0} Cart</span>
+              <span>
+                {cartItems.length > 0 ? `${cartItems.length} Cart` : "Cart"}
+              </span>
             </NavLink>
           </li>
           <li>
@@ -148,7 +147,9 @@ const Header = () => {
                 className="flex items-center space-x-2 text-white text-2xl transition-colors duration-300 hover:text-red-500"
               >
                 <HiShoppingCart />
-                <span>{cartItems.length > 0} Cart</span>
+                <span>
+                  {cartItems.length > 0 ? `${cartItems.length} Cart` : "Cart"}
+                </span>
               </NavLink>
             </li>
             <li>
@@ -172,7 +173,7 @@ const Header = () => {
                 {btnNameReact}
               </button>
             </li>
-            <li className="text-white">{loggedInUser}</li>
+            <li className="text-white text-2xl">{loggedInUser}</li>
           </ul>
         </div>
       )}
