@@ -46,7 +46,7 @@ function ItemList({ items }) {
 
         return (
           <div
-            className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-lg rounded-lg transition-transform hover:scale-[1.02] hover:shadow-md"
+            className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-lg rounded-lg hover:shadow-md"
             key={item.card.info.id}
           >
             {/* Item Details */}
@@ -66,7 +66,7 @@ function ItemList({ items }) {
             </div>
 
             {/* Item Image and Action Buttons */}
-            <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0">
+            <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0 justify-end">
               <img
                 className="w-32 h-24 object-cover rounded-md mb-4 md:mb-0 md:mr-4 shadow-sm"
                 src={CDN_URL + item?.card?.info?.imageId}
@@ -74,18 +74,18 @@ function ItemList({ items }) {
               />
               <div className="flex space-x-2">
                 <button
-                  className="px-4 py-2 rounded-md text-white font-semibold bg-green-500 hover:bg-green-600"
+                  className="px-4 py-2 border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
                   onClick={() => addHandler(item)}
                 >
-                  ADD +
+                  +
                 </button>
                 {/* Show Delete button only if item is in the cart */}
                 {isItemInCart && (
                   <button
-                    className="px-4 py-2 rounded-md text-white bg-red-500 hover:bg-red-600 font-semibold"
+                    className="px-4 py-2 border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
                     onClick={() => deleteHandler(item)}
                   >
-                    DELETE
+                    -
                   </button>
                 )}
               </div>
