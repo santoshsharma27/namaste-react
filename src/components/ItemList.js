@@ -3,10 +3,23 @@ import { addItem, deleteItem } from "../utils/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-function ItemList({ items }) {
+// Toast Notification Component (outside ItemList)
+function Toast({ notification }) {
+  if (!notification) return null;
+
+  return (
+    <div
+      className={`fixed top-20 right-4 p-3 rounded-lg shadow-lg transition-transform duration-300 z-50 ${notification.type === "add" ? "bg-green-500" : "bg-red-500"} text-white`}
+      style={{ zIndex: 9999 }} // Ensures it appears above all elements
+    >
+      {notification.message}
+    </div>
+  );
+}
+
+function ItemList({ items, setNotification }) {
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.items); // Get cart items from store
-  const [notification, setNotification] = useState(null); // State for the toast notification
+  const cartItems = useSelector((store) => store.cart.cart); // Get cart items from store
 
   function addHandler(item) {
     dispatch(addItem(item));
@@ -15,30 +28,21 @@ function ItemList({ items }) {
     // Hide toast after 2 seconds
     setTimeout(() => {
       setNotification(null);
-    }, 2000);
+    }, 1000);
   }
 
   function deleteHandler(item) {
-    dispatch(deleteItem(item)); // Dispatch delete action
+    dispatch(deleteItem(item.card.info.id)); // Dispatch delete action with the item ID
     setNotification({ type: "delete", message: "Item removed from cart!" });
 
     // Hide toast after 2 seconds
     setTimeout(() => {
       setNotification(null);
-    }, 2000);
+    }, 1000);
   }
 
   return (
     <div className="space-y-6 p-4 relative">
-      {/* Toast Notification */}
-      {notification && (
-        <div
-          className={`fixed top-20 right-4 p-3 rounded-lg shadow-lg transition-transform duration-300 ${notification.type === "add" ? "bg-green-500" : "bg-red-500"} text-white`}
-        >
-          {notification.message}
-        </div>
-      )}
-
       {items?.map((item) => {
         const isItemInCart = cartItems.some(
           (cartItem) => cartItem.card.info.id === item.card.info.id
@@ -48,6 +52,7 @@ function ItemList({ items }) {
           <div
             className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-lg rounded-lg hover:shadow-md"
             key={item.card.info.id}
+            style={{ minHeight: "160px" }} // Fix the height of each item for stability
           >
             {/* Item Details */}
             <div className="flex-1 text-left md:w-3/5">
@@ -74,7 +79,7 @@ function ItemList({ items }) {
               />
               <div className="flex space-x-2">
                 <button
-                  className="px-4 py-2 border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
+                  className="w-10 h-10 flex justify-center items-center border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
                   onClick={() => addHandler(item)}
                 >
                   +
@@ -82,7 +87,7 @@ function ItemList({ items }) {
                 {/* Show Delete button only if item is in the cart */}
                 {isItemInCart && (
                   <button
-                    className="px-4 py-2 border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
+                    className="w-10 h-10 flex justify-center items-center border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
                     onClick={() => deleteHandler(item)}
                   >
                     -
@@ -97,4 +102,14 @@ function ItemList({ items }) {
   );
 }
 
-export default ItemList;
+export default function ItemListWithToast({ items }) {
+  const [notification, setNotification] = useState(null);
+
+  return (
+    <>
+      {/* Toast notification placed at a higher level to avoid re-rendering ItemList */}
+      <Toast notification={notification} />
+      <ItemList items={items} setNotification={setNotification} />
+    </>
+  );
+}

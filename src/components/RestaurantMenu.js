@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import MenuShimmer from "./MenuShimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
 import RestaurantCategory from "./RestaurantCateory";
+import Loader from "../ui/Loader";
 
 const RestaurantMenu = () => {
   const [curOpen, setCurOpen] = useState(0);
@@ -10,9 +10,9 @@ const RestaurantMenu = () => {
   const resInfo = useRestaurantMenu(resId);
 
   // Show shimmer while loading
-  if (resInfo === null) return <MenuShimmer />;
+  if (resInfo === null) return <Loader />;
 
-  const { name, cuisines, costForTwoMessage } =
+  const { name, costForTwoMessage, avgRating } =
     resInfo?.cards[2]?.card?.card?.info;
 
   // Extract categories from the API response
@@ -27,7 +27,8 @@ const RestaurantMenu = () => {
     <div className="text-center m-5 pt-24">
       <h1 className="font-semibold text-2xl md:text-3xl mb-2">{name}</h1>
       <p className="italic text-sm md:text-lg">
-        {cuisines.join(", ")} - {costForTwoMessage}
+        {avgRating} <span className=" text-gray-400 px-2">•</span>
+        {costForTwoMessage}
       </p>
       <div className="mt-4 space-y-4">
         {categories?.map((category, index) => (

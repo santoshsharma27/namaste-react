@@ -10,7 +10,7 @@ import CartItems from "./CartItems";
 
 function Cart() {
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.items);
+  const cartItems = useSelector((store) => store.cart.cart);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
 
   function handleClearCart() {
@@ -26,7 +26,7 @@ function Cart() {
     setIsModalOpen(false); // Close the modal if cancelled
   }
 
-  if (cartItems.length === 0) return <EmptyCart />;
+  if (!cartItems.length) return <EmptyCart />;
 
   return (
     <div className="mt-5 w-11/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 m-auto p-4 pt-16">

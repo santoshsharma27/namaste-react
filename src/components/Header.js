@@ -13,7 +13,7 @@ const Header = () => {
 
   const isOnline = useOnline();
   const { loggedInUser } = useContext(UserContext);
-  const cartItems = useSelector((store) => store.cart.items);
+  const cartItems = useSelector((store) => store.cart.cart);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

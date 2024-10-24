@@ -9,14 +9,14 @@ function CartItems({ items }) {
   }
 
   function deleteHandler(item) {
-    dispatch(deleteItem(item));
+    dispatch(deleteItem(item.card.info.id));
   }
 
   return (
     <div className="space-y-6 p-4">
       {items?.map((item) => (
         <div
-          className="p-4 border-b flex flex-col md:flex-row items-center justify-between bg-white rounded-lg shadow-sm transition-transform duration-200 hover:shadow-md hover:scale-[1.02]"
+          className="p-4 border-b flex flex-col md:flex-row items-center justify-between bg-white rounded-lg"
           key={item.card.info.id}
         >
           {/* Item Name and Price */}
