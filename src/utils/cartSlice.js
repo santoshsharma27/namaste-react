@@ -16,20 +16,20 @@ const cartSlice = createSlice({
         (item) => item?.card?.info?.id !== action.payload
       );
     },
-    increaseItemQuantity: (state, action) => {
-      const item = state.items.find(
-        (item) => item?.card?.info?.id === action.payload
-      );
-      item.quantity++;
-    },
     decreaseItemQuantity: (state, action) => {
-      const item = state.items.find(
+      const item = state.cart.find(
         (item) => item?.card?.info?.id === action.payload
       );
 
-      item.quantity--;
-
-      // if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);
+      if (item) {
+        item.quantity--; // Decrease quantity
+        if (item.quantity <= 0) {
+          // If quantity is 0 or less, remove the item from the cart
+          state.cart = state.cart.filter(
+            (cartItem) => cartItem.card.info.id !== action.payload
+          );
+        }
+      }
     },
     clearCart: (state) => {
       state.cart.length = 0;

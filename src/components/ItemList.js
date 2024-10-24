@@ -1,16 +1,18 @@
 import { CDN_URL } from "../utils/constant";
-import { addItem, deleteItem } from "../utils/cartSlice";
+import { addItem, decreaseItemQuantity, deleteItem } from "../utils/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
-// Toast Notification Component (outside ItemList)
+// Toast Notification Component
 function Toast({ notification }) {
   if (!notification) return null;
 
   return (
     <div
-      className={`fixed top-20 right-4 p-3 rounded-lg shadow-lg transition-transform duration-300 z-50 ${notification.type === "add" ? "bg-green-500" : "bg-red-500"} text-white`}
-      style={{ zIndex: 9999 }} // Ensures it appears above all elements
+      className={`fixed top-20 right-4 p-3 rounded-lg shadow-lg transition-transform duration-300 z-50 ${
+        notification.type === "add" ? "bg-green-500" : "bg-red-500"
+      } text-white`}
+      style={{ zIndex: 9999 }}
     >
       {notification.message}
     </div>
@@ -19,26 +21,46 @@ function Toast({ notification }) {
 
 function ItemList({ items, setNotification }) {
   const dispatch = useDispatch();
-  const cartItems = useSelector((store) => store.cart.cart); // Get cart items from store
+  const cartItems = useSelector((store) => store.cart.cart);
+  const [itemCounts, setItemCounts] = useState({});
 
   function addHandler(item) {
-    dispatch(addItem(item));
-    setNotification({ type: "add", message: "Item added to cart!" });
+    const itemId = item.card.info.id;
 
-    // Hide toast after 2 seconds
+    dispatch(addItem(item));
+    setItemCounts((prevCounts) => ({
+      ...prevCounts,
+      [itemId]: (prevCounts[itemId] || 0) + 1,
+    }));
+
+    setNotification({ type: "add", message: "Item added to cart!" });
     setTimeout(() => {
       setNotification(null);
     }, 1000);
   }
 
-  function deleteHandler(item) {
-    dispatch(deleteItem(item.card.info.id)); // Dispatch delete action with the item ID
-    setNotification({ type: "delete", message: "Item removed from cart!" });
+  function decreaseItemHandler(item) {
+    const itemId = item.card.info.id;
 
-    // Hide toast after 2 seconds
-    setTimeout(() => {
-      setNotification(null);
-    }, 1000);
+    setItemCounts((prevCounts) => {
+      const currentCount = prevCounts[itemId] || 0;
+
+      if (currentCount > 1) {
+        const updatedCounts = {
+          ...prevCounts,
+          [itemId]: currentCount - 1,
+        };
+        dispatch(decreaseItemQuantity(itemId)); // Update the quantity in the Redux store
+        return updatedCounts; // Update local state
+      } else if (currentCount === 1) {
+        dispatch(deleteItem(itemId)); // Remove item from cart
+        return {
+          ...prevCounts,
+          [itemId]: 0, // Set count to zero in local state
+        };
+      }
+      return prevCounts; // No change if count is already zero
+    });
   }
 
   return (
@@ -47,12 +69,13 @@ function ItemList({ items, setNotification }) {
         const isItemInCart = cartItems.some(
           (cartItem) => cartItem.card.info.id === item.card.info.id
         );
+        const currentCount = itemCounts[item.card.info.id] || 0;
 
         return (
           <div
             className="flex flex-col md:flex-row items-center justify-between p-4 bg-white shadow-lg rounded-lg hover:shadow-md"
             key={item.card.info.id}
-            style={{ minHeight: "160px" }} // Fix the height of each item for stability
+            style={{ minHeight: "160px" }}
           >
             {/* Item Details */}
             <div className="flex-1 text-left md:w-3/5">
@@ -71,24 +94,26 @@ function ItemList({ items, setNotification }) {
             </div>
 
             {/* Item Image and Action Buttons */}
-            <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0 justify-end">
+            <div className="flex flex-col md:flex-row items-center md:w-2/5 mt-4 md:mt-0 justify-around">
               <img
                 className="w-32 h-24 object-cover rounded-md mb-4 md:mb-0 md:mr-4 shadow-sm"
                 src={CDN_URL + item?.card?.info?.imageId}
                 alt={item?.card?.info?.name}
               />
-              <div className="flex space-x-2">
+              <div className="flex items-center space-x-2">
                 <button
                   className="w-10 h-10 flex justify-center items-center border border-green-500 text-green-500 font-semibold rounded-md transition-colors hover:bg-green-500 hover:text-white"
                   onClick={() => addHandler(item)}
                 >
                   +
                 </button>
-                {/* Show Delete button only if item is in the cart */}
+                {isItemInCart && (
+                  <span className="text-lg font-semibold">{currentCount}</span>
+                )}
                 {isItemInCart && (
                   <button
                     className="w-10 h-10 flex justify-center items-center border border-red-500 text-red-500 font-semibold rounded-md transition-colors hover:bg-red-500 hover:text-white"
-                    onClick={() => deleteHandler(item)}
+                    onClick={() => decreaseItemHandler(item)}
                   >
                     -
                   </button>
@@ -107,7 +132,6 @@ export default function ItemListWithToast({ items }) {
 
   return (
     <>
-      {/* Toast notification placed at a higher level to avoid re-rendering ItemList */}
       <Toast notification={notification} />
       <ItemList items={items} setNotification={setNotification} />
     </>
