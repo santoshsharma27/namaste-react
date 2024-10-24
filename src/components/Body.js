@@ -15,7 +15,6 @@ const Body = () => {
     fetchData();
   }, []);
 
-  // async function getRestaurant to fetch API data
   const fetchData = async () => {
     try {
       const res = await fetch(SWIGGY_API);
@@ -24,7 +23,6 @@ const Body = () => {
       }
 
       const json = await res.json();
-      console.log("API Response: ", json); // Log the entire response
       const resData = checkJsonData(json);
 
       setAllfRestaurants(resData);
@@ -35,19 +33,16 @@ const Body = () => {
     }
   };
 
-  // Make sure to pass jsonData to this function
   const checkJsonData = (jsonData) => {
-    console.log(jsonData?.data?.cards.length);
     for (let i = 0; i < jsonData?.data?.cards.length; i++) {
       let checkData =
         jsonData?.data?.cards[i]?.card?.card?.gridElements?.infoWithStyle
           ?.restaurants;
-      console.log(checkData);
       if (checkData !== undefined) {
         return checkData;
       }
     }
-    return []; // Return an empty array if no data found
+    return [];
   };
 
   const isOnline = useOnline();
@@ -82,9 +77,9 @@ const Body = () => {
   return (
     <div>
       <div className="flex flex-col sm:flex-row items-center justify-center sm:space-x-4 space-y-4 sm:space-y-0 pt-20">
-        <div className="w-[400px] sm:w-auto px-4 sm:px-0 flex justify-center">
+        <div className="flex justify-center w-full sm:w-auto px-4 sm:px-0">
           <input
-            className="border border-solid w-full sm:w-[350px] max-w-[90%] sm:max-w-[350px] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all"
+            className="border border-solid w-full sm:w-[350px] max-w-[90%] rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all"
             type="text"
             placeholder="Search restaurants..."
             value={searchText}
